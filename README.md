@@ -4,12 +4,20 @@
 
 ```
 Cmpe195a/
-├── backend/               # Backend scripts and data processing
-│   ├── retrieveData.py    # Fetches raw cryptocurrency data from APIs
-│   ├── sanitizeData.py    # Cleans and prepares the data for machine learning
-│   ├── exampleRequest.py  # Example API request script
-│   ├── decreasedCSV/      # Folder for CSV files with reduced data
-│   ├── decreasedDF/       # Folder for DataFrame outputs
+├── backend/            # Backend scripts and data processing
+|   ├──Inference/
+│   	├── retrieveData.py    # Fetches raw cryptocurrency data from APIs
+│   	├── sanitizeData.py    # Cleans and prepares the data for machine learning
+│   	├── exampleRequest.py  # Example API request script
+│   	├── trainModel.py  # create training model from DF data
+│   	├── inference.py  # class for inference algorithm
+│   	├── Datasets/
+│   		├── decreasedCSV/      # Folder for CSV files with reduced data
+│   		├── decreasedDF/       # Folder for DataFrame outputs
+│   		├── decreasedForest/   # Folder for trained output of decreased data
+│   		├── increasedCSV/      # Folder for CSV files with reduced data
+│   		├── increasedDF/       # Folder for DataFrame outputs
+│   		├── increasedForest/   # Folder for trained output of increased data
 │
 ├── frontend/              # React-based frontend for TradeSense
 │   ├── public/            # Public assets (e.g., index.html, favicon)
