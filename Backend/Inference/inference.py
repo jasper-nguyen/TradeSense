@@ -1,169 +1,146 @@
 import os
 import pickle
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 
 class InferenceModel:
-    def __init__(self, dataframe_path, increased_path,decreased_path):
+    def __init__(self, increased_path, decreased_path, current_model=None):
         """
         Initializes the InferenceModel class.
+
+        Args:
+            increased_path (str): Directory containing decision trees for the "increased" scenario.
+            decreased_path (str): Directory containing decision trees for the "decreased" scenario.
+            current_model (sklearn model): A single decision tree model to be evaluated.
         """
-        self.dataframe_path = dataframe_path
         self.increased_path = increased_path
         self.decreased_path = decreased_path
-        self.dataframe = self._load_dataframe()
+        self.current_model = current_model
 
-    def _load_dataframe(self):
-        """Loads the input DataFrame from the given path."""
-        if not os.path.exists(self.dataframe_path):
-            raise FileNotFoundError(f"Input DataFrame file not found: {self.dataframe_path}")
-        
-        df = pd.read_csv(self.dataframe_path)
-        if df.empty:
-            raise ValueError("The provided DataFrame is empty.")
-        
-        return df
-    def evaluate_models(self, treesPath):
-        """
-        Evaluates the input DataFrame against all decision tree models in the directory
-        and ranks them by confidence score.
-    
-        Returns:
-            pd.DataFrame: A DataFrame ranking the models by confidence score.
-        """
-        if not os.path.exists(treesPath):
-            raise FileNotFoundError(f"The directory {self.trees_dir} does not exist.")
+        # Debugging: Print the type of the provided model
+        print(f"Provided model type: {type(self.current_model)}")
 
+        # Ensure the model is a valid decision tree classifier or regressor
+        if not isinstance(self.current_model, (DecisionTreeClassifier, DecisionTreeRegressor)):
+            raise ValueError("The provided model is not a valid decision tree model.")
+
+    def evaluate_model(self, clf, features, target_column=None):
+        """
+        Evaluates a single model (current_model) by comparing it to other models in terms of prediction confidence.
+        """
+        if isinstance(clf, DecisionTreeClassifier):
+            confidences = clf.predict_proba(features).max(axis=1)  # Maximum probability for classification
+            average_confidence = confidences.mean()
+        else:
+            predictions = clf.predict(features)
+            if target_column is not None:
+                residuals = abs(predictions - target_column)  # Calculate residuals for regression
+                average_confidence = residuals.mean()
+            else:
+                average_confidence = predictions.mean()  # If no target column, fallback to mean prediction confidence
+
+        return average_confidence
+
+    def evaluate_models(self, treesPath, features, target_column=None):
+        """
+        Evaluates models in the given directory by comparing their prediction confidence.
+        """
         scores = []
-    
+
         for filename in os.listdir(treesPath):
             if filename.endswith(".pkl"):
-                # Load the decision tree model
                 model_path = os.path.join(treesPath, filename)
-                with open(model_path, "rb") as model_file:
-                    clf = pickle.load(model_file)  # Just load the model (without feature names)
-
-                # Check if the model is indeed a DecisionTreeClassifier
-                if not isinstance(clf, DecisionTreeClassifier):
-                    print(f"Skipping {filename}: not a valid decision tree model.")
-                    continue
-
-                # Get feature names from the model using the tree structure
-                feature_names = clf.feature_names_in_ if hasattr(clf, "feature_names_in_") else self.dataframe.columns.tolist()
-
-                # Align features: add missing features and drop extra features
-                aligned_dataframe = self.dataframe.copy()
-
-                # List missing and extra features
-                missing_features = [f for f in feature_names if f not in aligned_dataframe.columns]
-                extra_features = [f for f in aligned_dataframe.columns if f not in feature_names]
-
-                # Add missing features as zero-filled columns
-                for feature in missing_features:
-                    aligned_dataframe[feature] = 0
-
-                # Drop extra features
-                aligned_dataframe = aligned_dataframe[feature_names]
-
-                # Calculate confidence score
                 try:
-                    confidences = clf.predict_proba(aligned_dataframe).max(axis=1)
-                    average_confidence = confidences.mean()
-                    scores.append((filename, average_confidence))
+                    with open(model_path, "rb") as model_file:
+                        clf = pickle.load(model_file)
 
-                    print( "most recent price data performed on file :" +filename + "with an average confidence of :"+str(average_confidence))
+                    # Check if the model is a classifier or regressor
+                    if isinstance(clf, (DecisionTreeClassifier, DecisionTreeRegressor)):
+                        # Perform the evaluation (either classification or regression)
+                        model_confidence = self.evaluate_model(clf, features, target_column)
+                    else:
+                        print(f"Skipping {filename}: Not a valid decision tree model.")
+                        continue
+
+                    scores.append((filename, model_confidence))
+                    print(f"Evaluated {filename} with an average confidence of: {model_confidence:.4f}")
                 except Exception as e:
                     print(f"Error evaluating {filename}: {e}")
 
-        # Rank models by confidence score
         ranked_scores = pd.DataFrame(scores, columns=["Model", "Confidence Score"])
         ranked_scores = ranked_scores.sort_values(by="Confidence Score", ascending=False).reset_index(drop=True)
-        
         return ranked_scores
 
-    def calculate_weighted_average(self, results):
+    def compare_current_model(self, features, target_column=None):
         """
-        Calculates the weighted average of the confidence scores for models.
-
-        Args:
-            results (pd.DataFrame): DataFrame containing models and their corresponding confidence scores.
-    
-        Returns:
-            float: Weighted average of confidence scores.
+        Compare the given model (`current_model`) with other models in increased and decreased directories.
         """
-        # Ensure 'weights' is numeric by converting to pd.Series (if it's an Index or non-numeric object)
-        if isinstance(results['Confidence Score'], pd.Series):
-            confidences = results['Confidence Score']
-        else:
-            confidences = pd.Series(results['Confidence Score'])
+        if features is None:
+            raise ValueError("Features for evaluation are required.")
 
-        # Assuming you have a 'weights' column or you can compute weights (e.g., by confidence score or model type)
-        weights = confidences  # In case weights are the confidence scores themselves
+        # Evaluate the current model
+        print("Evaluating current model...")
+        current_model_confidence = self.evaluate_model(self.current_model, features, target_column)
+        print(f"Current model confidence: {current_model_confidence:.4f}")
 
-        # Ensure weights are numeric
-        weights = pd.to_numeric(weights, errors='coerce')  # Coerce any non-numeric values to NaN (optional)
+        # Evaluate models in increased and decreased directories
+        print("\nEvaluating models in increased directory...")
+        increased_results = self.evaluate_models(self.increased_path, features, target_column)
+        print("\nEvaluating models in decreased directory...")
+        decreased_results = self.evaluate_models(self.decreased_path, features, target_column)
 
-        # Calculate weighted sum
-        weighted_sum = (confidences * weights).sum()  # Sum of weighted confidences
+        # Compare the current model to the others
+        increased_results = increased_results.append({
+            "Model": "Current Model",
+            "Confidence Score": current_model_confidence
+        }, ignore_index=True)
+        increased_results = increased_results.sort_values(by="Confidence Score", ascending=False).reset_index(drop=True)
 
-        # Calculate total weight
-        total_weights = weights.sum()  # Sum of weights
+        decreased_results = decreased_results.append({
+            "Model": "Current Model",
+            "Confidence Score": current_model_confidence
+        }, ignore_index=True)
+        decreased_results = decreased_results.sort_values(by="Confidence Score", ascending=False).reset_index(drop=True)
 
-        if total_weights == 0:
-            raise ValueError("Total weights sum to zero, cannot compute weighted average.")
+        return increased_results, decreased_results
 
-        # Compute weighted average
-        weighted_average = weighted_sum / total_weights
+    def load_and_evaluate_models(self, model_path, features, target_column=None):
+        """Load the model and features and compare against other models."""
+        # If model path is provided, load the current model
+        if model_path:
+            self.load_current_model(model_path)
 
-        return weighted_average
+        # Compare current model with others
+        increased_results, decreased_results = self.compare_current_model(features, target_column)
 
+        # Output results
+        print("\nFinal Ranking in Increased Models:")
+        print(increased_results)
 
-    def compare_increased_and_decreased(self):
-        """
-        Compares the weighted average confidence scores for two sets of models and DataFrames.
-    
-        Parameters:
-        increasedPath (str): Path to the DataFrame for the "increased" scenario.
-        increasedDir (str): Directory containing decision trees for the "increased" scenario.
-        decreasedPath (str): Path to the DataFrame for the "decreased" scenario.
-        decreasedDir (str): Directory containing decision trees for the "decreased" scenario.
+        print("\nFinal Ranking in Decreased Models:")
+        print(decreased_results)
 
-        Returns:
-            None: Prints the results of the comparison.
-        """
-        # Evaluate models
-        print("calculating confidence for increased class model")
-        increased_results = self.evaluate_models(self.increased_path)
-        print("calculating confidence for decreased class model")
-        decreased_results = self.evaluate_models(self.decreased_path)
+        return increased_results, decreased_results
 
-        # Calculate weighted averages
-        increased_avg = self.calculate_weighted_average(increased_results)
-        decreased_avg = self.calculate_weighted_average(decreased_results)
-
-        # Print comparison results
-        print("Weighted Average Confidence Scores:")
-        print(f"Increased: {increased_avg:.4f}")
-        print(f"Decreased: {decreased_avg:.4f}")
-
-        if increased_avg > decreased_avg:
-            print("The 'Increased' models performed better on average.")
-        elif decreased_avg > increased_avg:
-            print("The 'Decreased' models performed better on average.")
-        else:
-            print("Both sets of models performed equally well.")
 
 
 # Example usage
 if __name__ == "__main__":
-    # Paths for increased and decreased scenarios
-    #currentPath = "increasedDF/BTC_2024-10_to_2024-12.csv"  # Replace with actual path
-    currentPath = "increasedDF/BTC_2012-01_to_2012-03.csv"  # Replace with actual path
-    increasedDir = "increasedForest"       # Replace with actual directory
-    decreasedDir = "decreasedForest"       # Replace with actual directory
+    # Initialize paths for directories containing decision trees
+    increasedDir = "Datasets/increasedForest"  # Replace with actual directory
+    decreasedDir = "Datasets/decreasedForest"  # Replace with actual directory
+    modelPath = "Datasets/currentPriceData/BTC_2024-07_to_2024-09_tree.pkl"  # Path to the current model file
+    csvPath = "Datasets/currentPriceData/BTC_2024-07_to_2024-09.csv"  # Path to the CSV file with features
 
-    # Compare the models
-    inferenceModel= InferenceModel( currentPath, increasedDir, decreasedDir)
-    inferenceModel.compare_increased_and_decreased()
+    # Initialize the InferenceModel and compare models
+    inferenceModel = InferenceModel(increasedDir, decreasedDir)
+    inferenceModel.load_and_evaluate_models(modelPath, csvPath)
+
+
+
+
+
+
+
 
