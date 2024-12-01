@@ -43,7 +43,7 @@ def process_csv_directory(input_dir, output_dir):
 
 # Example usage
 if __name__ == "__main__":
-    input_directory = "decreasedDF"  # Replace with path to DF
-    output_directory = "decreasedForest"  # Replace with path to Forest
+    input_directory = "increasedDF"  # Replace with path to DF
+    output_directory = "increasedForest"  # Replace with path to Forest
 
     process_csv_directory(input_directory, output_directory)
