@@ -1,7 +1,7 @@
 'use client'; // Mark as client component
 
-import Navbar from './components/Navbar'; // Import the Navbar
-import './globals.css'; // Link to global styles (if needed)
+import Navbar from './components/Navbar.js'; // Import the Navbar
+import './globals.css'; 
 
 function Layout({ children }) {
     return (
@@ -13,7 +13,6 @@ function Layout({ children }) {
                     <meta charSet="UTF-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <title>TradeSense - AI-Enhanced Crypto Trading</title>
-                    {/* You can add any other global tags here */}
                 </head>
                 <body>
                     {/* Include the Navbar at the top of every page */}
