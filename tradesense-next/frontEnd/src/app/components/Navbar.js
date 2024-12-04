@@ -6,11 +6,14 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <h1>TradeSense</h1>
+                <div className="navbar-logo">
+                    <img src="/homelogo.png" alt="Home Logo" className="logo" />
+                    <span className="navbar-title">TradeSense</span>
+                </div>
             </div>
             <div className="navbar-right">
                 <Link href="/">Home</Link>
-                <Link href="/market">Market</Link>
+                <Link href="/pages/market">Market</Link>
                 <Link href="/pages/about">About Us</Link>
                 <Link href="/contact">Contact</Link>
                 <Link href="/pages/login"><button className="navbar-button">Sign In</button></Link>

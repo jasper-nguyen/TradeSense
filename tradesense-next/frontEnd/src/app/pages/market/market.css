@@ -1,0 +1,182 @@
+.market-page-container {
+    padding: 50px;
+}
+
+.market-page-layout {
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
+    gap: 20px;
+}
+
+.market-sidebar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.market-sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.checkbox-group label {
+    display: block;
+    margin: 10px 0;
+}
+
+.checkbox-group input {
+    margin-right: 10px;
+}
+
+.market-cards-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.market-search-filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.market-search {
+    padding: 8px 20px 8px 12px; 
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%; 
+    max-width: 600px; 
+    position: relative;
+}
+
+.market-search .search-icon {
+    position: absolute;
+    right: 20px; 
+    top: 40%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.filter-buttons {
+    margin-left: auto;
+}
+
+.filter-buttons button {
+    padding: 8px 16px;
+    margin: 0 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-buttons button.active {
+    background-color: #00bcd4;
+    color: white;
+}
+
+.market-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 40px;
+}
+
+.market-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.market-card:hover {
+    transform: scale(1.05);
+}
+
+.market-card-header {
+    margin-bottom: 10px;
+}
+
+.market-card-body {
+    font-size: 16px;
+}
+
+.market-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.market-card-amount {
+    font-size: 20px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.market-card-percentage {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.market-card-percentage.positive {
+    color: #4caf50; /* Green for positive */
+}
+
+.market-card-percentage.negative {
+    color: #f44336; /* Red for negative */
+}
+
+.price-slider {
+    margin-bottom: 20px; 
+}
+
+.price-slider label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.price-slider .slider {
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    -webkit-appearance: none;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.price-slider .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #00bcd4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.price-slider .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #00bcd4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-values {
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-values span {
+    font-size: 14px;
+    color: #555;
+}

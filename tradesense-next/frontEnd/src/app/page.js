@@ -48,18 +48,6 @@ function HomePage() {
                 <p className="signup-description">Join thousands of successful traders using TradeSense to make smarter trades with the help of AI.</p>
                 <button className="cta-button">Sign Up</button>
             </section>
-
-            {/* Footer Section */}
-            <footer className="footer">
-                <div className="footer-content">
-                    <p>&copy; 2024 TradeSense. All Rights Reserved.</p>
-                    <div className="footer-links">
-                        <a href="/about">About Us</a>
-                        <a href="/contact">Contact</a>
-                        <a href="/privacy">Privacy Policy</a>
-                    </div>
-                </div>
-            </footer>
         </div>
     );
 }
