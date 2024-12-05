@@ -19,15 +19,15 @@ Cmpe195a/
 │   		├── increasedDF/       # Folder for DataFrame outputs
 │   		├── increasedForest/   # Folder for trained output of increased data
 │
-├── frontend/              # React-based frontend for TradeSense
-│   ├── public/            # Public assets (e.g., index.html, favicon)
-│   ├── src/               # React source files
-│       ├── api/           # API calls to communicate with backend
-│       ├── components/    # Reusable React components (e.g., Navbar, Footer)
-│       ├── pages/         # Pages like Home, Dashboard, Login
-│       ├── styles/        # CSS and styled-components
-│       ├── assets/        # Images, fonts, and other static files
-│   ├── package.json       # Frontend dependencies and scripts
+├── tradesense-next/              # Frontend for TradeSense
+|   ├──frontend/
+│       ├── public/            # Public assets (e.g., index.html, favicon)
+│       ├── src/app/               # Source files
+│           ├── api/           # API calls to communicate with backend
+│           ├── components/    # Reusable React components (e.g., Navbar, Footer)
+│           ├── pages/         # Pages like Home, Dashboard, Login, along with CSS files
+│           ├── assets/        # Images, fonts, and other static files
+│       ├── package.json       # Frontend dependencies and scripts
 │
 ├── README.md              # This file
 ```
@@ -40,8 +40,7 @@ The frontend is located in the `frontend/` directory. It is a React application 
 
 In the `frontend/` directory, you can run:
 
-- `npm start`: Runs the app in development mode.
-- `npm test`: Launches the test runner.
+- `npm run dev`: Runs the app in development mode.
 - `npm run build`: Builds the app for production.
 - `npm run eject`: Ejects the configuration files.
 
@@ -67,11 +66,11 @@ The backend consists of Python scripts for data retrieval and sanitization.
 
 	git clone https://github.com/yourusername/Cmpe195a.git
 
-	cd frontend
+	cd .\tradesense-next\frontend
 
 	npm install
 
-	npm start
+	npm run dev
 
 #### Setting Up the Backend
 	
@@ -99,14 +98,12 @@ The backend consists of Python scripts for data retrieval and sanitization.
 
 ##### Adding Components or Pages:
 - Add new reusable UI components in `src/components`.
-- Add new pages in `src/pages`.
+- Add new pages in `src/pages/(pageID)` along with the corresponding css files.
 
 ##### API Calls:
 - Add API interaction logic in `src/api/apiClient.js`.
 - Use `apiClient` to interact with backend routes.
 
-##### Styling:
-- Add CSS in `src/styles` or use styled components.
 
 #### Backend
 
