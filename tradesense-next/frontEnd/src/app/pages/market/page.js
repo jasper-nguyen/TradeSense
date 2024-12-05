@@ -16,7 +16,7 @@ function MarketPage() {
 
                 {/* Price Slider Section */}
                 <div className="price-slider">
-                    <label htmlFor="price-range">Price</label>
+                    <h3>Price</h3>
                     <input
                         type="range"
                         id="price-range"
@@ -28,7 +28,7 @@ function MarketPage() {
                     />
                     <div className="slider-values">
                         <span>$0</span>
-                        <span>∞</span>
+                        <span>$1000000</span>
                     </div>
                 </div>
 

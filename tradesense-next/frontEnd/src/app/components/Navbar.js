@@ -15,9 +15,9 @@ function Navbar() {
                 <Link href="/">Home</Link>
                 <Link href="/pages/market">Market</Link>
                 <Link href="/pages/about">About Us</Link>
-                <Link href="/contact">Contact</Link>
-                <Link href="/pages/login"><button className="navbar-button">Sign In</button></Link>
-                <Link href="/pages/registration"><button className="navbar-button">Register</button></Link>
+                <Link href="https://github.com/definetlynottri/Cmpe195a">Contact</Link>
+                <Link href="/pages/login"><button className="navbar-button1">Log In</button></Link>
+                <Link href="/pages/registration"><button className="navbar-button2">Register</button></Link>
             </div>
         </nav>
     );

@@ -25,8 +25,10 @@ function LoginPage() {
 
     return (
         <div className="login-container">
+            <h2 className="login-title">Login to Your Account</h2>
+            <h3 className="login-subtitle">Welcome Back!</h3>
             <div className="login-box">
-                <h2 className="login-title">Login to Your Account</h2>
+                
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Email Address</label>
@@ -37,6 +39,7 @@ function LoginPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
+                            placeholder="email@domain.com"
                         />
                     </div>
                     <div className="input-group">
@@ -48,6 +51,7 @@ function LoginPage() {
                             value={formData.password}
                             onChange={handleChange}
                             required
+                            placeholder="********"
                         />
                     </div>
                     <button type="submit" className="submit-button">Login</button>

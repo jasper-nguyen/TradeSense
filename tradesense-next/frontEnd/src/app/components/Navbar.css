@@ -5,7 +5,7 @@
     position: sticky;
     top: 0;
     width: 100%;
-    background-color: #001C3F; 
+    background-color: black; 
     padding: 16px 50px;
     z-index: 1000; 
     box-shadow: 0 4px 2px -2px gray; 
@@ -42,20 +42,40 @@
 }
 
 .navbar-right a:hover {
-    color: #00c7b7; 
+    color: #fddc5c; 
 }
 
-.navbar-button {
-    background-color: #00c7b7;
-    color: white;
+.navbar-button1 {
+    background-color: black; 
+    color: white; 
     padding: 7px 20px;
-    border-radius: 5px;
-    border: none;
+    border-radius: 16px;
+    border: 1px solid white; 
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     font-weight: bold;
 }
 
-.navbar-button:hover {
-    background-color: #009e9b; 
+.navbar-button1:hover {
+    background-color: black; 
+    border-color: #fddc5c; 
+}
+
+.navbar-button2 {
+    background-color: white;
+    color: black;
+    padding: 7px 20px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.0rem;
+    font-weight: bold;
+}
+
+.navbar-button1:hover {
+    opacity: 0.9;
+}
+
+.navbar-button2:hover {
+    opacity: 0.9;
 }

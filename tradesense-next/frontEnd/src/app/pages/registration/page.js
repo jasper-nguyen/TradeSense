@@ -27,8 +27,9 @@ function RegistrationPage() {
 
     return (
         <div className="registration-container">
+            <h2 className="registration-title">Create an Account</h2>
+            <h3 className="registration-subtitle">Enter Your Details to Start Trading</h3>
             <div className="registration-box">
-                <h2 className="registration-title">Create an Account</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="name">Full Name</label>
@@ -39,6 +40,7 @@ function RegistrationPage() {
                             value={formData.name}
                             onChange={handleChange}
                             required
+                            placeholder="John Doe"
                         />
                     </div>
                     <div className="input-group">
@@ -50,6 +52,7 @@ function RegistrationPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
+                            placeholder="email@domain.com"
                         />
                     </div>
                     <div className="input-group">
@@ -61,6 +64,7 @@ function RegistrationPage() {
                             value={formData.password}
                             onChange={handleChange}
                             required
+                            placeholder="********"
                         />
                     </div>
                     <div className="input-group">
@@ -72,12 +76,12 @@ function RegistrationPage() {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
+                            placeholder="********"
                         />
                     </div>
                     <Link href="/pages/login">
-                        <button type="submit" className="submit-button">Register</button>
+                        <button type="submit" className="submit-button">Continue</button>
                     </Link>
-                    
                 </form>
             </div>
         </div>
@@ -85,3 +89,4 @@ function RegistrationPage() {
 }
 
 export default RegistrationPage;
+

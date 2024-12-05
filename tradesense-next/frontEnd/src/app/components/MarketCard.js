@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image'; // Import for optimized images
+import Image from 'next/image'; 
 
 function MarketCard({ crypto, logo, amount, percentage }) {
     return (

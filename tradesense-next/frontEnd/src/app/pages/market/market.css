@@ -1,5 +1,6 @@
 .market-page-container {
     padding: 50px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9);
 }
 
 .market-page-layout {
@@ -19,15 +20,18 @@
 .market-sidebar h3 {
     font-size: 18px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .checkbox-group label {
     display: block;
     margin: 10px 0;
+    cursor: pointer;
 }
 
 .checkbox-group input {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .market-cards-container {
@@ -99,6 +103,7 @@
 
 .market-card:hover {
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 .market-card-header {
