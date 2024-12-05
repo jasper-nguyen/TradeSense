@@ -66,7 +66,7 @@ The backend consists of Python scripts for data retrieval and sanitization.
 
 	git clone https://github.com/yourusername/Cmpe195a.git
 
-	cd frontend
+	cd .\tradesense-next\frontend
 
 	npm install
 
