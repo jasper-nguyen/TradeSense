@@ -9,7 +9,7 @@ CRYPTO = 'BTC'  # Cryptocurrency symbol
 API_KEY = '519a1532cfff52e51dfedcd5d693810d64e5708b75cc4d341e572cbc05abe2cf'  # Replace with your CryptoCompare API key
 BASE_URL = 'https://min-api.cryptocompare.com/data/v2/histoday'
 
-def fetch_price_data(coin, from_date, to_date):
+def fetch_price_data(coin, from_date, to_date, retries=3, delay=5):
     url = BASE_URL
     params = {
         'fsym': coin,
@@ -19,14 +19,26 @@ def fetch_price_data(coin, from_date, to_date):
         'api_key': API_KEY
     }
     
-    response = requests.get(url, params=params)
-    if response.status_code != 200:
-        print(f"Error fetching data: {response.status_code}, {response.text}")
-        return pd.DataFrame()
+    attempt = 0
+    while attempt < retries:
+        try:
+            response = requests.get(url, params=params)
+            response.raise_for_status()  # This will raise an exception for 4xx/5xx errors
 
-    data = response.json()
-    prices = data.get('Data', {}).get('Data', [])
-    return pd.DataFrame(prices)
+            data = response.json()
+            prices = data.get('Data', {}).get('Data', [])
+            return pd.DataFrame(prices)  # Return the prices as a DataFrame
+
+        except requests.exceptions.RequestException as e:
+            # Handle all request-related exceptions (ConnectionError, Timeout, etc.)
+            print(f"Attempt {attempt + 1}/{retries} failed: {e}")
+            attempt += 1
+            if attempt < retries:
+                print(f"Retrying in {delay} seconds...")
+                time.sleep(delay)  # Wait before retrying
+            else:
+                print("Max retries exceeded. Could not fetch data.")
+                return pd.DataFrame()  # Return an empty DataFrame if all attempts fail
 
 def analyze_prices(prices, future_prices):
     if 'close' in prices.columns and 'close' in future_prices.columns:
@@ -54,7 +66,7 @@ def main(folder1, folder2):
             month_start = datetime(current_year, month, 1)
             month_end = (month_start + pd.offsets.MonthEnd()).to_pydatetime()
 
-            # Define the three-month period
+            # Define the three-month period (current period)
             three_month_start = month_start
             three_month_end = month_start + pd.DateOffset(months=3) - timedelta(days=1)
 
@@ -65,29 +77,37 @@ def main(folder1, folder2):
                 prices['time'] = pd.to_datetime(prices['time'], unit='s')  # Convert timestamps to datetime
                 prices = prices[(prices['time'] >= three_month_start) & (prices['time'] <= three_month_end)]
 
-                # Define the following three-month period for comparison
-                future_three_month_start = three_month_end + timedelta(days=1)
+                # Define the following three-month period for comparison (future period)
+                future_three_month_start = three_month_end + timedelta(days=1)  # Next day after current period ends
                 future_three_month_end = future_three_month_start + pd.DateOffset(months=3) - timedelta(days=1)
 
-                # Fetch data for the following three-month period
+                # Fetch data for the following three-month period (future)
+                print(f"Fetching future data: {future_three_month_start} to {future_three_month_end}")  # Debugging
                 future_prices = fetch_price_data(coin_id, future_three_month_start, future_three_month_end)
 
-                # Analyze prices
-                result = 'increased' if analyze_prices(prices, future_prices) else 'not_increased'
+                if not future_prices.empty:
+                    future_prices['time'] = pd.to_datetime(future_prices['time'], unit='s')  # Convert timestamps to datetime
+                    future_prices = future_prices[(future_prices['time'] >= future_three_month_start) & (future_prices['time'] <= future_three_month_end)]
 
-                # Save only the current three-month period data
-                prices.rename(columns={'time': 'date', 'high': 'high_price'}, inplace=True)
-                filename = f"{CRYPTO}_{three_month_start.strftime('%Y-%m')}_to_{three_month_end.strftime('%Y-%m')}.csv"
-                if result == 'increased':
-                    save_to_csv(prices, folder2, filename)
+                    # Analyze prices
+                    result = 'increased' if analyze_prices(prices, future_prices) else 'not_increased'
+
+                    # Save only the current three-month period data
+                    prices.rename(columns={'time': 'date', 'high': 'high_price'}, inplace=True)
+                    filename = f"{CRYPTO}_{three_month_start.strftime('%Y-%m')}_to_{three_month_end.strftime('%Y-%m')}.csv"
+                    if result == 'increased':
+                        save_to_csv(prices, folder2, filename)
+                    else:
+                        save_to_csv(prices, folder1, filename)
+
                 else:
-                    save_to_csv(prices, folder1, filename)
+                    print(f"Future data for {future_three_month_start} to {future_three_month_end} is empty.")
 
-            # Sleep to avoid hitting the rate limit
-            time.sleep(1)
-
+            # Sleep to avoid hitting the rate limit (original behavior)
+            time.sleep(1)  # This sleep preserves the rate-limiting logic you originally had
     
 # Example usage
-folder1_path = "decreasedCSV"
-folder2_path = "increasedCSV"
+folder1_path = "Datasets/decreasedCSV"
+folder2_path = "Datasets/increasedCSV"
 main(folder1_path, folder2_path)
+

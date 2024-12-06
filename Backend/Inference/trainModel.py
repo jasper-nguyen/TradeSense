@@ -1,48 +1,54 @@
-def evaluate_models(self, treesPath):
-    scores = []
- 
-    for filename in os.listdir(treesPath):
-        if filename.endswith(".pkl"):
-            model_path = os.path.join(treesPath, filename)
+import os
+import pandas as pd
+import pickle
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+def train_regression_tree_from_csv(input_directory, output_directory):
+    # Ensure the output directory exists
+    os.makedirs(output_directory, exist_ok=True)
+
+    # Loop through all CSV files in the input directory
+    for filename in os.listdir(input_directory):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(input_directory, filename)
             try:
-                with open(model_path, "rb") as model_file:
-                    clf = pickle.load(model_file)
+                # Read the cleaned CSV file into a DataFrame
+                df = pd.read_csv(file_path, header=None)
 
-                # Check if the model is either a classifier or regressor
-                if isinstance(clf, DecisionTreeClassifier):
-                    # For classifiers, use predict_proba
-                    feature_names = clf.feature_names_in_ if hasattr(clf, "feature_names_in_") else self.dataframe.columns.tolist()
-                    aligned_dataframe = self.dataframe[feature_names]
+                # Assume the last column is the target (y), and the rest are features (X)
+                X = df.iloc[:, :-1]  # All columns except the last
+                y = df.iloc[:, -1]   # The last column as the target
 
-                    if not all(feature in aligned_dataframe.columns for feature in feature_names):
-                        print(f"Missing some features in {filename}, skipping this model.")
-                        continue
+                # Split the data into training and testing sets
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-                    confidences = clf.predict_proba(aligned_dataframe).max(axis=1)  # Get max probability as confidence
-                    average_confidence = confidences.mean()
+                # Initialize and train the regression tree
+                regressor = DecisionTreeRegressor(random_state=42)
+                regressor.fit(X_train, y_train)
 
-                elif isinstance(clf, DecisionTreeRegressor):
-                    # For regressors, use predict and calculate confidence based on residuals or similar
-                    feature_names = clf.feature_names_in_ if hasattr(clf, "feature_names_in_") else self.dataframe.columns.tolist()
-                    aligned_dataframe = self.dataframe[feature_names]
+                # Evaluate the model (optional)
+                y_pred = regressor.predict(X_test)
+                mse = mean_squared_error(y_test, y_pred)
+                print(f"Trained regression tree for {filename} with MSE: {mse:.4f}")
 
-                    if not all(feature in aligned_dataframe.columns for feature in feature_names):
-                        print(f"Missing some features in {filename}, skipping this model.")
-                        continue
+                # Save the trained model to the output directory as a .pkl file
+                model_filename = os.path.join(output_directory, f"regression_tree_{filename.replace('.csv', '.pkl')}")
+                with open(model_filename, 'wb') as model_file:
+                    pickle.dump(regressor, model_file)
+                print(f"Model saved to: {model_filename}")
 
-                    predictions = clf.predict(aligned_dataframe)
-                    residuals = abs(predictions - self.dataframe['close'])  # Calculate residuals as measure of confidence
-                    average_confidence = residuals.mean()  # You can modify this logic depending on what you're aiming to measure
-
-                else:
-                    print(f"Skipping {filename}: not a valid decision tree model.")
-                    continue
-
-                scores.append((filename, average_confidence))
-                print(f"Evaluated {filename} with an average confidence of: {average_confidence:.4f}")
             except Exception as e:
-                print(f"Error evaluating {filename}: {e}")
+                print(f"Error processing {filename}: {e}")
 
-    ranked_scores = pd.DataFrame(scores, columns=["Model", "Confidence Score"])
-    ranked_scores = ranked_scores.sort_values(by="Confidence Score", ascending=False).reset_index(drop=True)
-    return ranked_scores
+# Example usage
+if __name__ == "__main__":
+    input_directory = "Datasets/increasedDf"  # Path to your cleaned CSV files
+    output_directory = "Datasets/increasedForest"  # Path to save the regression tree models
+    train_regression_tree_from_csv(input_directory, output_directory)
+
+    input_directory = "Datasets/decreasedDf"  # Path to your cleaned CSV files
+    output_directory = "Datasets/decreasedForest"  # Path to save the regression tree models
+    train_regression_tree_from_csv(input_directory, output_directory)
+
