@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import time
 
 # Constants
-CRYPTO = 'BTC'  # Cryptocurrency symbol
+CRYPTO = 'SOL'  # Cryptocurrency symbol
 API_KEY = '519a1532cfff52e51dfedcd5d693810d64e5708b75cc4d341e572cbc05abe2cf'  # Replace with your CryptoCompare API key
 BASE_URL = 'https://min-api.cryptocompare.com/data/v2/histoday'
 
@@ -58,7 +58,7 @@ def main(folder1, folder2):
     os.makedirs(folder2, exist_ok=True)
 
     coin_id = CRYPTO
-    start_year = 2011  # Start from 2011
+    start_year = 2020  # IMPORTANT, MUST SET START YEAR TO EARLIEST AVAILBLE FOR IT
     end_year = datetime.now().year
 
     for current_year in range(start_year, end_year + 1):
@@ -107,7 +107,7 @@ def main(folder1, folder2):
             time.sleep(1)  # This sleep preserves the rate-limiting logic you originally had
     
 # Example usage
-folder1_path = "Datasets/decreasedCSV"
-folder2_path = "Datasets/increasedCSV"
+folder1_path = "Datasets/SOL/decreasedSOLCSV"
+folder2_path = "Datasets/SOL/increasedSOLCSV"
 main(folder1_path, folder2_path)
 

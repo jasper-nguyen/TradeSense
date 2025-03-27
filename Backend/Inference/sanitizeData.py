@@ -39,10 +39,10 @@ def clean_csv_files(input_directory, output_directory):
 # Example usage
 if __name__ == "__main__":
     # Correcting the directory paths (removing any extra spaces)
-    input_directory_increased = "Datasets/increasedCSV"  # Replace with your input directory
-    output_directory_increased = "Datasets/increasedDf"  # Replace with your output directory
+    input_directory_increased = "Datasets/SOL/increasedSOLCSV"  # Replace with your input directory
+    output_directory_increased = "Datasets/SOL/increasedSOLDf"  # Replace with your output directory
     clean_csv_files(input_directory_increased, output_directory_increased)
 
-    input_directory_decreased = "Datasets/decreasedCSV"  # Replace with your input directory
-    output_directory_decreased = "Datasets/decreasedDf"  # Replace with your output directory
+    input_directory_decreased = "Datasets/SOL/decreasedSOLCSV"  # Replace with your input directory
+    output_directory_decreased = "Datasets/SOL/decreasedSOLDf"  # Replace with your output directory
     clean_csv_files(input_directory_decreased, output_directory_decreased)

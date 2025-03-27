@@ -44,11 +44,11 @@ def train_regression_tree_from_csv(input_directory, output_directory):
 
 # Example usage
 if __name__ == "__main__":
-    input_directory = "Datasets/increasedDf"  # Path to your cleaned CSV files
-    output_directory = "Datasets/increasedForest"  # Path to save the regression tree models
+    input_directory = "Datasets/SOL/increasedSOLDf"  # Path to your cleaned CSV files
+    output_directory = "Datasets/SOL/increasedSOLForest"  # Path to save the regression tree models
     train_regression_tree_from_csv(input_directory, output_directory)
 
-    input_directory = "Datasets/decreasedDf"  # Path to your cleaned CSV files
-    output_directory = "Datasets/decreasedForest"  # Path to save the regression tree models
+    input_directory = "Datasets/SOL/decreasedSOLDf"  # Path to your cleaned CSV files
+    output_directory = "Datasets/SOL/decreasedSOLForest"  # Path to save the regression tree models
     train_regression_tree_from_csv(input_directory, output_directory)
 

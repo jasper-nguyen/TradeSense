@@ -74,17 +74,23 @@ class ModelEvaluator:
 
         # Compare the results
         if avg_increased_mse is not None and avg_decreased_mse is not None:
-            if avg_increased_mse < avg_decreased_mse:
-                print("Increased models perform better.")
+            if avg_increased_mse > avg_decreased_mse:
+                percent_score = 1- (avg_decreased_mse/avg_increased_mse)
+                print("Increased models perform better by :" ,percent_score)
+                return [avg_increased_mse, avg_decreased_mse, 'increased', percent_score]
             else:
-                print("Decreased models perform better.")
+                percent_score = 1- (avg_increased_mse/avg_decreased_mse)
+                print("decreased models perform better by :" ,percent_score)
+                return [avg_increased_mse, avg_decreased_mse, 'decreased', percent_score]
+
+        
 
 
 # Example usage
 if __name__ == "__main__":
-    baseline_model_path = "Datasets/currentPriceData/regression_tree_BTC_2024-12_to_2025-02.pkl"  # Replace with actual path to the baseline model
-    increased_models_dir = "Datasets/increasedForest"  # Replace with actual path to increased models
-    decreased_models_dir = "Datasets/decreasedForest"  # Replace with actual path to decreased models
+    baseline_model_path = "Datasets/BTC/currentPriceData/regression_tree_BTC_2024-12_to_2025-02.pkl"  # Replace with actual path to the baseline model
+    increased_models_dir = "Datasets/BTC/increasedForest"  # Replace with actual path to increased models
+    decreased_models_dir = "Datasets/BTC/decreasedForest"  # Replace with actual path to decreased models
 
     # Example data for testing (should be the same structure used during training)
     # This assumes you have test data in X_test and y_test for evaluation.
