@@ -45,12 +45,21 @@ In the `frontend/` directory, you can run:
 - `npm run eject`: Ejects the configuration files.
 
 ## Backend
+Usage
+- cd Backend
+- python3 main.py
 
-The backend consists of Python scripts for data retrieval and sanitization.
+FastAPI docs
+- using browser access addr/port defined in main.py with /docs
+- example using default:
+- http://127.0.0.1:8000/docs
 
+
+Additional Developer Scripts
 - `exampleRequest.py`: Handles example requests.
 - `retreiveData.py`: Retrieves cryptocurrency data.
 - `sanitizeData.py`: Cleans the CSV files.
+
 
 ## Setup Instructions
 
@@ -110,9 +119,10 @@ The backend consists of Python scripts for data retrieval and sanitization.
 ##### Data Processing:
 - Use `retrieveData.py` to collect data from APIs.
 - Use `sanitizeData.py` to preprocess the data.
+- Use trainModel.py to generate data models
 
 ##### API Endpoints:
-- Define your API endpoints (e.g., Flask or FastAPI routes) to connect to the FrontEnd.
+- Define your API endpoints in main.py (fastAPI)
 
 
 ### Contributions 
