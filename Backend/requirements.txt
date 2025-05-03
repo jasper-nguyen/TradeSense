@@ -1,0 +1,7 @@
+requests
+fastapi
+uvicorn
+numpy
+typing
+pickle
+sklearn
