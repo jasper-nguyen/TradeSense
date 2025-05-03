@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import MarketCard from '../../components/MarketCard';  
+import MarketCard from '../../components/MarketCard';
 import './market.css';
+import Price from '@/app/components/backendCalls/price';
 
 function MarketPage() {
     const [filter, setFilter] = useState('Trade Volume');  // Default filter
@@ -14,23 +15,23 @@ function MarketPage() {
                 {/* Sidebar Section */}
                 <div className="market-sidebar">
 
-                {/* Price Slider Section */}
-                <div className="price-slider">
-                    <h3>Price</h3>
-                    <input
-                        type="range"
-                        id="price-range"
-                        min="0"
-                        max="1000000"
-                        step="1000"
-                        defaultValue="0"
-                        className="slider"
-                    />
-                    <div className="slider-values">
-                        <span>$0</span>
-                        <span>$1000000</span>
+                    {/* Price Slider Section */}
+                    <div className="price-slider">
+                        <h3>Price</h3>
+                        <input
+                            type="range"
+                            id="price-range"
+                            min="0"
+                            max="1000000"
+                            step="1000"
+                            defaultValue="0"
+                            className="slider"
+                        />
+                        <div className="slider-values">
+                            <span>$0</span>
+                            <span>$1000000</span>
+                        </div>
                     </div>
-                </div>
 
                     {/* Categories Section */}
                     <h3>Categories</h3>
@@ -81,12 +82,12 @@ function MarketPage() {
 
                     {/* Market Cards */}
                     <div className="market-cards">
-                        <MarketCard crypto="BTC" logo="btc.png" amount="$96,737.82" percentage="+0.09%" />
-                        <MarketCard crypto="ETH" logo="eth.png" amount="$2,474.55" percentage="+1.12%" />
-                        <MarketCard crypto="USDT" logo="usdt.png" amount="$1.00" percentage="0.00%" />
-                        <MarketCard crypto="SOL" logo="sol.png" amount="$22.95" percentage="-0.57%" />
-                        <MarketCard crypto="XRP" logo="xrp.png" amount="$0.52" percentage="-0.12%" />
-                        <MarketCard crypto="DOGE" logo="doge.png" amount="$0.069" percentage="+0.22%" />
+                        <MarketCard crypto="BTC" logo="btc.png" percentage="+0.09%" />
+                        <MarketCard crypto="ETH" logo="eth.png" percentage="+1.12%" />
+                        <MarketCard crypto="USDT" logo="usdt.png" percentage="0.00%" />
+                        <MarketCard crypto="SOL" logo="sol.png" percentage="-0.57%" />
+                        <MarketCard crypto="XRP" logo="xrp.png" percentage="-0.12%" />
+                        <MarketCard crypto="DOGE" logo="doge.png" percentage="+0.22%" />
                     </div>
                 </div>
             </div>
