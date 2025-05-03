@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import './registration.css';
 import Link from 'next/link';
+import { db } from "../../Database/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 function RegistrationPage() {
     const [formData, setFormData] = useState({
@@ -19,11 +21,35 @@ function RegistrationPage() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log(formData);
+        console.log("Form submitted:", formData);
+
+        try {
+            console.log("Attempting to add to Firestore...");
+            await addDoc(collection(db, "users"), {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+            });
+            console.log("Added!");
+
+            alert("User registered successfully!");
+
+            // Optionally reset the form:
+            setFormData({
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+            });
+
+        } catch (error) {
+            console.error("Error adding user to Firestore:", error);
+            alert("Registration failed. Check the console.");
+        }
     };
+
 
     return (
         <div className="registration-container">
