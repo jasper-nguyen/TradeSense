@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import MarketCard from '../../components/MarketCard';
 import './market.css';
 import Price from '@/app/components/backendCalls/price';
+import Link from 'next/link';
 
 function MarketPage() {
     const [filter, setFilter] = useState('Trade Volume');  // Default filter
@@ -82,7 +83,7 @@ function MarketPage() {
 
                     {/* Market Cards */}
                     <div className="market-cards">
-                        <MarketCard crypto="BTC" logo="btc.png" percentage="+0.09%" />
+                        <Link href="/pages/info"> <MarketCard crypto="BTC" logo="btc.png" percentage="+0.09%" /> </Link>
                         <MarketCard crypto="ETH" logo="eth.png" percentage="+1.12%" />
                         <MarketCard crypto="USDT" logo="usdt.png" percentage="0.00%" />
                         <MarketCard crypto="SOL" logo="sol.png" percentage="-0.57%" />
