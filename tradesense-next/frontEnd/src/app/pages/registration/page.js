@@ -4,6 +4,7 @@ import './registration.css';
 import Link from 'next/link';
 import { db } from "../../Database/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { useRouter } from 'next/navigation';
 
 function RegistrationPage() {
     const [formData, setFormData] = useState({
@@ -12,6 +13,9 @@ function RegistrationPage() {
         password: '',
         confirmPassword: ''
     });
+
+
+    const router = useRouter();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,15 +39,15 @@ function RegistrationPage() {
             console.log("Added!");
 
             alert("User registered successfully!");
+            setFormData({ name: '', email: '', password: '', confirmPassword: '' });
 
-            // Optionally reset the form:
             setFormData({
                 name: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
             });
-
+            router.push('/pages/login');
         } catch (error) {
             console.error("Error adding user to Firestore:", error);
             alert("Registration failed. Check the console.");
@@ -105,9 +109,7 @@ function RegistrationPage() {
                             placeholder="********"
                         />
                     </div>
-                    <Link href="/pages/login">
-                        <button type="submit" className="submit-button">Continue</button>
-                    </Link>
+                    <button type="submit" className="submit-button">Continue</button>
                 </form>
             </div>
         </div>
