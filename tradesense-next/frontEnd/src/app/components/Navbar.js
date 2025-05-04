@@ -8,8 +8,23 @@ function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const loggedIn = localStorage.getItem('isLoggedIn');
-        setIsLoggedIn(loggedIn === 'true');
+        const checkLogin = () => {
+            const loggedIn = localStorage.getItem('isLoggedIn');
+            setIsLoggedIn(loggedIn === 'true');
+        };
+
+        checkLogin(); // Initial check
+
+        // 👇 Listen for changes to localStorage (even across tabs)
+        window.addEventListener('storage', checkLogin);
+
+        // Optional: recheck on focus (helps when coming back to page)
+        window.addEventListener('focus', checkLogin);
+
+        return () => {
+            window.removeEventListener('storage', checkLogin);
+            window.removeEventListener('focus', checkLogin);
+        };
     }, []);
 
     return (
@@ -27,7 +42,7 @@ function Navbar() {
                 <Link href="https://github.com/definetlynottri/Cmpe195a">Contact</Link>
 
                 {isLoggedIn ? (
-                    <Link href="/pages/profile"><button className="navbar-button1"> Profile</button></Link>
+                    <Link href="/pages/profile"><button className="navbar-button1">Profile</button></Link>
                 ) : (
                     <>
                         <Link href="/pages/login"><button className="navbar-button1">Log In</button></Link>

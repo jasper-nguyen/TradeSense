@@ -1,8 +1,20 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import './main.css';
 
 function HomePage() {
+    const router = useRouter();
+
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn === 'true') {
+            router.push('/pages/market');
+        }
+    }, []);
+
     return (
         <div className="homepage-container">
             {/* Hero Section */}
@@ -10,11 +22,11 @@ function HomePage() {
                 <div className="hero-content">
                     <h1 className="hero-title">Welcome to TradeSense!</h1>
                     <p className="hero-description">
-                        Unlock the power of AI to make smarter cryptocurrency trades. 
-                        Our platform analyzes trends, predicts prices, and 
+                        Unlock the power of AI to make smarter cryptocurrency trades.
+                        Our platform analyzes trends, predicts prices, and
                         automates trading to maximize YOUR profits.
                     </p>
-                    <Link href="/pages/registration"> 
+                    <Link href="/pages/registration">
                         <button className="cta-button">Get Started</button>
                     </Link>
                 </div>
@@ -48,7 +60,9 @@ function HomePage() {
             {/* Sign-Up Section */}
             <section className="signup-section">
                 <h2 className="signup-title">Start Trading Today</h2>
-                <p className="signup-description">Join thousands of successful traders using TradeSense to make smarter trades with the help of AI.</p>
+                <p className="signup-description">
+                    Join thousands of successful traders using TradeSense to make smarter trades with the help of AI.
+                </p>
                 <Link href="/pages/registration">
                     <button className="cta-button2">Sign Up</button>
                 </Link>
