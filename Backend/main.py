@@ -88,6 +88,23 @@ async def current_price_SOL():
     result = sol_retriever.get_current_price()
     return result
 
+#routes for getting percent change
+@app.get("/percent-change-BTC")
+async def current_price_BTC():
+    percent = btc_retriever.get_percent_change()
+    return percent
+
+@app.get("/percent-change-ETH")
+async def current_price_ETH():
+    percent = eth_retriever.get_percent_change()
+    return percent
+
+@app.get("/percent-change-SOL")
+async def current_price_SOL():
+    percent = sol_retriever.get_percent_change()
+    return percent
+
+
 @app.get("/info-BTC")
 async def info_BTC():
     start_date = datetime(2022, 1, 1)
