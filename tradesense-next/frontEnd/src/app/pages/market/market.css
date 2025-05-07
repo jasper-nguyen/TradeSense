@@ -5,7 +5,7 @@
 
 .market-page-layout {
     display: grid;
-    grid-template-columns: 1fr 3fr; 
+    grid-template-columns: 1fr 3fr;
     gap: 20px;
 }
 
@@ -50,18 +50,18 @@
 }
 
 .market-search {
-    padding: 8px 20px 8px 12px; 
+    padding: 8px 20px 8px 12px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    width: 100%; 
-    max-width: 600px; 
+    width: 100%;
+    max-width: 600px;
     position: relative;
 }
 
 .market-search .search-icon {
     position: absolute;
-    right: 20px; 
+    right: 20px;
     top: 40%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -87,7 +87,7 @@
 
 .market-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 40px;
 }
 
@@ -132,15 +132,17 @@
 }
 
 .market-card-percentage.positive {
-    color: #4caf50; /* Green for positive */
+    color: #4caf50;
+    /* Green for positive */
 }
 
 .market-card-percentage.negative {
-    color: #f44336; /* Red for negative */
+    color: #f44336;
+    /* Red for negative */
 }
 
 .price-slider {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .price-slider label {

@@ -5,9 +5,21 @@ import numpy as np
 from typing import Dict, Any
 from Inference.inference import ModelEvaluator
 from RetreivePrice.retreiver import Retriever
+from fastapi.middleware.cors import CORSMiddleware
 # Initialize FastAPI app
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # define paths for each currency
 #BTC
 baseline_model_path_BTC= "Inference/Datasets/BTC/currentPriceData/regression_tree_BTC_2024-12_to_2025-02.pkl"
@@ -59,21 +71,21 @@ async def evaluate_SOL():
 
 #routes for getting current price 
 @app.get("/current-price-BTC")
-async def current-price-BTC():
+async def current_price_BTC():
     result = btc_retriever.get_current_price()
     return result
 
 @app.get("/current-price-ETH")
-async def current-price-ETH():
+async def current_price_ETH():
     result = eth_retriever.get_current_price()
     return result
 
 @app.get("/current-price-SOL")
-async def current-price-SOL():
+async def current_price_SOL():
     result = sol_retriever.get_current_price()
     return result
 
 
 # Run the app using uvicorn
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -89,5 +89,5 @@ from datetime import datetime, timedelta
 start_date = datetime(2022, 1, 1)
 end_date = datetime(2022, 4, 1)
 
-prices = fetch_price_data(start_date, end_date)
+prices = fetch_price_data("BTC",start_date, end_date)
 print(prices.head())  # Check the fields returned
