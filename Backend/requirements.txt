@@ -4,4 +4,4 @@ uvicorn
 numpy
 typing
 pickle
-sklearn
+scikit-learn

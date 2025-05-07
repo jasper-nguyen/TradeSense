@@ -1,4 +1,6 @@
 
+from datetime import datetime, timedelta
+from Inference.exampleRequest import fetch_price_data
 from fastapi import FastAPI
 import uvicorn
 import numpy as np
@@ -6,6 +8,7 @@ from typing import Dict, Any
 from Inference.inference import ModelEvaluator
 from RetreivePrice.retreiver import Retriever
 from fastapi.middleware.cors import CORSMiddleware
+
 # Initialize FastAPI app
 app = FastAPI()
 
@@ -56,7 +59,7 @@ eth_retriever = Retriever(api_key, "ETH")
 #routes for getting AI prediction 
 @app.get("/evaluate-BTC")
 async def evaluate_BTC():
-    result = BTCevaluator.compare_average_scores(X_test, y_test)
+    result = str(BTCevaluator.compare_average_scores(X_test, y_test))
     return result
 
 @app.get("/evaluate-ETH")
@@ -83,6 +86,30 @@ async def current_price_ETH():
 @app.get("/current-price-SOL")
 async def current_price_SOL():
     result = sol_retriever.get_current_price()
+    return result
+
+@app.get("/info-BTC")
+async def info_BTC():
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2022, 4, 1)
+    prices = fetch_price_data("BTC",start_date, end_date)
+    result = str(prices.head()).split("\n")
+    return result
+
+@app.get("/info-ETH")
+async def info_ETH():
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2022, 4, 1)
+    prices = fetch_price_data("ETH",start_date, end_date)
+    result = str(prices.head()).split("\n")
+    return result
+
+@app.get("/info-SOL")
+async def info_SOL():
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2022, 4, 1)
+    prices = fetch_price_data("SOL",start_date, end_date)
+    result = str(prices.head()).split("\n")
     return result
 
 

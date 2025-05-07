@@ -83,10 +83,10 @@ function MarketPage() {
 
                     {/* Market Cards */}
                     <div className="market-cards">
-                        <Link href="/pages/info"> <MarketCard crypto="BTC" logo="btc.png" percentage="+0.09%" /> </Link>
-                        <MarketCard crypto="ETH" logo="eth.png" percentage="+1.12%" />
+                        <Link href="/pages/info/btc"> <MarketCard crypto="BTC" logo="btc.png" percentage="+0.09%" /> </Link>
+                        <Link href="/pages/info/eth"> <MarketCard crypto="ETH" logo="eth.png" percentage="+1.12%" /> </Link>
                         <MarketCard crypto="USDT" logo="usdt.png" percentage="0.00%" />
-                        <MarketCard crypto="SOL" logo="sol.png" percentage="-0.57%" />
+                        <Link href="/pages/info/sol"> <MarketCard crypto="SOL" logo="sol.png" percentage="-0.57%" /> </Link>
                         <MarketCard crypto="XRP" logo="xrp.png" percentage="-0.12%" />
                         <MarketCard crypto="DOGE" logo="doge.png" percentage="+0.22%" />
                     </div>
