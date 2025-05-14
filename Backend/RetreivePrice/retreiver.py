@@ -24,6 +24,27 @@ class Retriever:
             print(f"Error fetching current price for {self.crypto_symbol}: {e}")
             return None
 
+
+
+
+    def get_percent_change(self):
+                url = 'https://min-api.cryptocompare.com/data/pricemultifull'
+                params = {
+                     'fsyms': self.crypto_symbol,
+                     'tsyms': 'USD',
+                     'api_key': self.api_key
+                }
+                try:
+                    response = requests.get(url, params=params)
+                    response.raise_for_status()
+                    data = response.json()
+                    print(data)
+
+                    return round(data["RAW"][self.crypto_symbol]["USD"]["CHANGEPCT24HOUR"], 2)
+                except requests.exceptions.RequestException as e:
+                    print(f"Error fetching percentage change for {self.crypto_symbol}: {e}")
+                    return None
+
     #NOTE: YOU GUYS CAN BUILD OFF OF THIS TO GET RANGES OF DATA IN CERTAIN FORMATS
 
         

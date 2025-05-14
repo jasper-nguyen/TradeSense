@@ -1,13 +1,28 @@
 
+from datetime import datetime, timedelta
+from Inference.exampleRequest import fetch_price_data
 from fastapi import FastAPI
 import uvicorn
 import numpy as np
 from typing import Dict, Any
 from Inference.inference import ModelEvaluator
 from RetreivePrice.retreiver import Retriever
+from fastapi.middleware.cors import CORSMiddleware
+
 # Initialize FastAPI app
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # define paths for each currency
 #BTC
 baseline_model_path_BTC= "Inference/Datasets/BTC/currentPriceData/regression_tree_BTC_2024-12_to_2025-02.pkl"
@@ -44,7 +59,7 @@ eth_retriever = Retriever(api_key, "ETH")
 #routes for getting AI prediction 
 @app.get("/evaluate-BTC")
 async def evaluate_BTC():
-    result = BTCevaluator.compare_average_scores(X_test, y_test)
+    result = str(BTCevaluator.compare_average_scores(X_test, y_test))
     return result
 
 @app.get("/evaluate-ETH")
@@ -59,21 +74,62 @@ async def evaluate_SOL():
 
 #routes for getting current price 
 @app.get("/current-price-BTC")
-async def current-price-BTC():
+async def current_price_BTC():
     result = btc_retriever.get_current_price()
     return result
 
 @app.get("/current-price-ETH")
-async def current-price-ETH():
+async def current_price_ETH():
     result = eth_retriever.get_current_price()
     return result
 
 @app.get("/current-price-SOL")
-async def current-price-SOL():
+async def current_price_SOL():
     result = sol_retriever.get_current_price()
+    return result
+
+#routes for getting percent change
+@app.get("/percent-change-BTC")
+async def current_price_BTC():
+    percent = btc_retriever.get_percent_change()
+    return percent
+
+@app.get("/percent-change-ETH")
+async def current_price_ETH():
+    percent = eth_retriever.get_percent_change()
+    return percent
+
+@app.get("/percent-change-SOL")
+async def current_price_SOL():
+    percent = sol_retriever.get_percent_change()
+    return percent
+
+
+@app.get("/info-BTC")
+async def info_BTC():
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2022, 4, 1)
+    prices = fetch_price_data("BTC",start_date, end_date)
+    result = str(prices.head()).split("\n")
+    return result
+
+@app.get("/info-ETH")
+async def info_ETH():
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2022, 4, 1)
+    prices = fetch_price_data("ETH",start_date, end_date)
+    result = str(prices.head()).split("\n")
+    return result
+
+@app.get("/info-SOL")
+async def info_SOL():
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2022, 4, 1)
+    prices = fetch_price_data("SOL",start_date, end_date)
+    result = str(prices.head()).split("\n")
     return result
 
 
 # Run the app using uvicorn
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

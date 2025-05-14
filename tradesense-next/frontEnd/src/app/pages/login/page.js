@@ -1,5 +1,8 @@
 'use client';  // Mark as client component
 
+import { db } from "../../Database/firebase";
+import { useRouter } from 'next/navigation';
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import React, { useState } from 'react';
 import './login.css'; 
 
@@ -17,10 +20,35 @@ function LoginPage() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log(formData);
+
+        try {
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("email", "==", formData.email));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                const userDoc = querySnapshot.docs[0];
+                const userData = userDoc.data();
+
+                if (userData.password === formData.password) {
+                    // ✅ Success
+                    localStorage.setItem("isLoggedIn", "true");
+                    alert("Login successful!");
+                    router.push("/pages/market");
+                } else {
+                    alert("Incorrect password");
+                }
+            } else {
+                alert("No user found with this email");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Something went wrong. Check console.");
+        }
     };
 
     return (
