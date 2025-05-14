@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/api';
+import './infoCard.css'
 
 const InfoCard = ({ coin }) => {
     const [info, setInfo] = useState([]);
