@@ -1,48 +1,114 @@
-/* CryptoPrice.css */
+/* Updated Info CSS */
 .crypto-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 2rem;
-    background-color: #f0f2f5;
+    background-color: #f9fafb;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #555;
+}
+
+.crypto-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .crypto-title {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #555;
 }
 
-.crypto-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-    max-width: 400px;
+.crypto-price {
+    font-size: 2.5rem;
+    color: #555;
+    margin: 0.5rem 0;
 }
 
-.crypto-list {
+.suggest-button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.crypto-change {
+    color: green;
+    font-size: 1.2rem;
+}
+
+.crypto-history {
+    margin-bottom: 2rem;
+    width: fit-content;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.crypto-history ul {
     list-style: none;
     padding: 0;
 }
 
-.crypto-list li {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-    color: #444;
+.crypto-history li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eaeaea;
 }
 
-.crypto-list li span {
-    font-weight: 600;
-    color: #000;
+.crypto-history li:last-child {
+    border-bottom: none;
+    min-width: min-content;
 }
 
-.loading {
-    font-size: 1.5rem;
-    color: #555;
+.crypto-footer {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.time-select {
+    background: #ededed;
+    border-radius: 10%;
+}
+
+.profile-button {
+    background-color: #e2e8f0;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-button:hover {
+    background-color: #cbd5e1;
+}
+
+.crypto-prices {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.price-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 150px;
     text-align: center;
-    margin-top: 2rem;
+}
+
+.price-card h4 {
+    margin-bottom: 0.5rem;
+}
+
+.price-card p {
+    margin: 0.25rem 0;
 }
