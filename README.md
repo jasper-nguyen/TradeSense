@@ -38,7 +38,7 @@ The frontend is located in the `frontend/` directory. It is a React application 
 
 ### Available Scripts
 
-In the `frontend/` directory, you can run:
+In the `tradesense-next/frontend/` directory, you can run:
 
 - `npm run dev`: Runs the app in development mode.
 - `npm run build`: Builds the app for production.
