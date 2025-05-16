@@ -97,9 +97,7 @@ Additional Developer Scripts
 
 	pip install -r requirements.txt
 
-	python retreiveData.py
-
-	python sanitizeData.py
+	python main.py
 
 ### How to Use the CodeBase
 
