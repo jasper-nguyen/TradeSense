@@ -26,7 +26,7 @@ function SOLPage() {
                     <option value="Month">Month</option>
                     <option value="Year">Year</option>
                 </select>
-                <button onClick={() => setButtonPopup(true)} className="suggest-button">Suggest</button>
+
                 <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                     <h3>My Popup</h3>
                     <p>This is my button popup</p>

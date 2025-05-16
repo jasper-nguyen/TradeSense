@@ -1,27 +1,98 @@
+/* popup.css */
+
+/* Overlay backdrop */
 .popup {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 0; left: 0;
+    width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.2);
-
+    background: rgba(0,0,0,0.6);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.2s forwards;
 }
 
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* The white “card” */
 .popup-inner {
     position: relative;
-    padding: 32px;
-    width: 100%;
-    max-width: 640px;
-    background-color: white;
-    border-radius: 10px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    max-width: 90%;
+    width: 400px;
+    padding: 1.5rem 2rem;
+    animation: popIn 0.2s ease-out;
 }
 
-.popup-inner .close-btn {
+@keyframes popIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+/* Close button */
+.close-btn {
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover {
+    color: #333;
+}
+
+/* Suggest button (green) */
+.suggest-button {
+    background-color: #28a745;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.suggest-button:hover {
+    background-color: #218838;
+}
+.suggest-button:active {
+    background-color: #1e7e34;
+    transform: scale(0.97);
+}
+
+/* Full-response block */
+.popup-inner h4 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.popup-inner pre {
+    margin: 0.5rem 0 1.5rem;
+    padding: 0.75rem;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    line-height: 1.4;
+    color: #111;
+}
+
+/* Suggestion text */
+.popup-inner h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #222;
 }
