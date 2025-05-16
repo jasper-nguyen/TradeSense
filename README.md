@@ -74,6 +74,12 @@ Additional Developer Scripts
 
 	npm install
 
+ Users may run into missing axios, must run this to confirm no error
+ 
+	npm install axios
+
+ Start up the app!
+ 
 	npm run dev
 
 ### Setting Up the Backend
