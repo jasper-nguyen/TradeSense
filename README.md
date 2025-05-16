@@ -38,16 +38,11 @@ The frontend is located in the `frontend/` directory. It is a React application 
 
 ### Available Scripts
 
-In the `frontend/` directory, you can run:
+In the `tradesense-next/frontend/` directory, you can run:
 
 - `npm run dev`: Runs the app in development mode.
 - `npm run build`: Builds the app for production.
 - `npm run eject`: Ejects the configuration files.
-
-## Backend
-Usage
-- cd Backend
-- python3 main.py
 
 FastAPI docs
 - using browser access addr/port defined in main.py with /docs
@@ -61,9 +56,9 @@ Additional Developer Scripts
 - `sanitizeData.py`: Cleans the CSV files.
 
 
-## Setup Instructions
+# Setup Instructions
 
-### Prerequisites
+## Prerequisites
 
 - Node.js and npm (for the frontend)
 - Python 3.x and pip (for the backend)
@@ -71,7 +66,7 @@ Additional Developer Scripts
 
 ### Clone the Repository
 
-#### Setting Up the FrontEnd
+### Setting Up the FrontEnd
 
 	git clone https://github.com/yourusername/Cmpe195a.git
 
@@ -79,9 +74,31 @@ Additional Developer Scripts
 
 	npm install
 
+ Users may run into missing axios, must run this to confirm no error
+ 
+	npm install axios
+
+ Start up the app!
+ 
 	npm run dev
 
-#### Setting Up the Backend
+### Setting Up the Backend
+
+#### Open another terminal alongside frontend
+
+ Traverse to backend directory
+
+ 	cd ./Backend
+  
+ Make sure to have all requirements ready:
+
+	pip install -r requirements.txt
+
+ Run the backend! (with python installed, done here)
+
+	python main.py	
+
+(optional below, assuming python is installed above)
 	
 	python -m venv venv
 
@@ -93,13 +110,7 @@ Additional Developer Scripts
 
  	source venv/bin/activate
 
- Make sure to have all requirements ready:
 
-	pip install -r requirements.txt
-
-	python retreiveData.py
-
-	python sanitizeData.py
 
 ### How to Use the CodeBase
 
