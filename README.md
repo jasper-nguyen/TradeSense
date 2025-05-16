@@ -58,7 +58,7 @@ Additional Developer Scripts
 
 # Setup Instructions
 
-### Prerequisites
+## Prerequisites
 
 - Node.js and npm (for the frontend)
 - Python 3.x and pip (for the backend)
@@ -66,7 +66,7 @@ Additional Developer Scripts
 
 ### Clone the Repository
 
-#### Setting Up the FrontEnd
+### Setting Up the FrontEnd
 
 	git clone https://github.com/yourusername/Cmpe195a.git
 
@@ -76,7 +76,7 @@ Additional Developer Scripts
 
 	npm run dev
 
-#### Setting Up the Backend
+### Setting Up the Backend
 
  Make sure to have all requirements ready:
 
