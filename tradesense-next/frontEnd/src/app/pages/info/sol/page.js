@@ -7,7 +7,7 @@ import InfoCard from '@/app/components/backendCalls/infoCard';
 
 let crypto = "SOL"
 function SOLPage() {
-    const [view, setView] = useState('Week');
+    const [view, setView] = useState('Day');
     const history = [
         { type: 'Sold', amount: '0.009 BTC', price: '$621.98' },
         { type: 'Bought', amount: '0.003 BTC', price: '$273.72' }

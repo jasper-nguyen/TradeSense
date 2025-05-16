@@ -7,7 +7,7 @@ import InfoCard from '@/app/components/backendCalls/infoCard';
 
 let crypto = "BTC"
 function BTCPage() {
-    const [view, setView] = useState('Week');
+    const [view, setView] = useState('Day');
     const history = [
         { type: 'Sold', amount: '0.009 BTC', price: '$621.98' },
         { type: 'Bought', amount: '0.003 BTC', price: '$273.72' }
@@ -19,6 +19,7 @@ function BTCPage() {
                 <h2 className="crypto-title">Bitcoin price USD</h2>
                 <h1 className="crypto-price"><Price coin={crypto} view={view} /></h1>
                 <select className="time-select" value={view} onChange={(e) => setView(e.target.value)}>
+                    <option value="Day">Day</option>
                     <option value="Week">Week</option>
                     <option value="Month">Month</option>
                     <option value="Year">Year</option>

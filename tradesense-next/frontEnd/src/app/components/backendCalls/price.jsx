@@ -15,8 +15,11 @@ const Price = ({ coin, view }) => {
                 // Determine the correct route based on view
                 let percentRoute = '';
                 switch (view?.toLowerCase()) {
+                    case 'day':
+                        percentRoute = `/percent-change-${coin}`;
+                        break;
                     case 'week':
-                        percentRoute = `/percent-change-weekly-${coin}`;
+                        percentRoute = `/percent-change-week-${coin}`;
                         break;
                     case 'month':
                         percentRoute = `/percent-change-monthly-${coin}`;
@@ -49,7 +52,7 @@ const Price = ({ coin, view }) => {
         <>
             <p className="market-card-amount">${price.toLocaleString()}</p>
             <p className={`market-card-percentage ${parseFloat(percentChange) >= 0 ? 'positive' : 'negative'}`}>
-                {percentChange} over {view}
+                {percentChange} over 24h {view}
             </p>
         </>
     );
