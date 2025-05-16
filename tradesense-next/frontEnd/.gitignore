@@ -30,6 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # env files (can opt-in for committing if needed)
+# Python virtual environments
+venv/
+Backend/venv/
+.env
 .env*
 
 # vercel
@@ -38,5 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
 
 

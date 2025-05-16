@@ -17,6 +17,9 @@ function SOLPage() {
 
     return (
         <div className="crypto-container">
+            <div className="crypto-image">
+                <img src="/sol.png" alt="Bitcoin" style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '8px' }} />
+            </div>
             <div className="crypto-header">
                 <h2 className="crypto-title">Solana price USD</h2>
                 <h1 className="crypto-price"><Price coin={crypto} view={view} /></h1>

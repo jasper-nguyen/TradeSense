@@ -17,6 +17,9 @@ function ETHPage() {
 
     return (
         <div className="crypto-container">
+            <div className="crypto-image">
+                <img src="/eth.png" alt="Bitcoin" style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '8px' }} />
+            </div>
             <div className="crypto-header">
                 <h2 className="crypto-title">Ethereum price USD</h2>
                 <h1 className="crypto-price"><Price coin={crypto} view={view} /></h1>

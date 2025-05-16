@@ -1,3 +1,20 @@
 .crypto-card {
-    width: max-content;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.crypto-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.crypto-list li {
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.crypto-list strong {
+    font-weight: bold;
 }

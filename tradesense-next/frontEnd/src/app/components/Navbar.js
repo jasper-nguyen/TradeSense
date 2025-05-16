@@ -39,7 +39,13 @@ function Navbar() {
                 <Link href="/">Home</Link>
                 <Link href="/pages/market">Market</Link>
                 <Link href="/pages/about">About Us</Link>
-                <Link href="https://github.com/definetlynottri/Cmpe195a">Contact</Link>
+                <a
+                    href="https://github.com/definetlynottri/Cmpe195a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >
+                    Contact
+                </a>
 
                 {isLoggedIn ? (
                     <Link href="/pages/profile"><button className="navbar-button1">Profile</button></Link>
