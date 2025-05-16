@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import Price from '@/app/components/backendCalls/price';
 import '../info.css';
 import InfoCard from '@/app/components/backendCalls/infoCard';
+import Popup from '@/app/components/backendCalls/suggestionPopup';
 
 let crypto = "BTC"
 function BTCPage() {
+    const [buttonPopup, setButtonPopup] = useState(false);
     const [view, setView] = useState('Day');
     const history = [
         { type: 'Sold', amount: '0.009 BTC', price: '$621.98' },
@@ -24,7 +26,11 @@ function BTCPage() {
                     <option value="Month">Month</option>
                     <option value="Year">Year</option>
                 </select>
-                <button className="suggest-button">Suggest</button>
+                <button onClick={() => setButtonPopup(true)} className="suggest-button">Suggest</button>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <h3>My Popup</h3>
+                    <p>This is my button popup</p>
+                </Popup>
             </div>
 
             <div className="crypto-history">
@@ -46,8 +52,8 @@ function BTCPage() {
                     <p>+33% over 5 months</p>
                 </div>
                 <div className="price-card">
-                    <h4>XRP</h4>
-                    <p>$2.63</p>
+                    <h4>SOL</h4>
+                    <p>$172.63</p>
                     <p>+86% over 1 month</p>
                 </div>
             </div>
