@@ -44,11 +44,6 @@ In the `frontend/` directory, you can run:
 - `npm run build`: Builds the app for production.
 - `npm run eject`: Ejects the configuration files.
 
-## Backend
-Usage
-- cd Backend
-- python3 main.py
-
 FastAPI docs
 - using browser access addr/port defined in main.py with /docs
 - example using default:
@@ -61,7 +56,7 @@ Additional Developer Scripts
 - `sanitizeData.py`: Cleans the CSV files.
 
 
-## Setup Instructions
+# Setup Instructions
 
 ### Prerequisites
 
@@ -82,6 +77,14 @@ Additional Developer Scripts
 	npm run dev
 
 #### Setting Up the Backend
+
+ Make sure to have all requirements ready:
+
+	pip install -r requirements.txt
+
+	python main.py	
+
+	(optional below, assuming python is installed above)
 	
 	python -m venv venv
 
@@ -93,11 +96,7 @@ Additional Developer Scripts
 
  	source venv/bin/activate
 
- Make sure to have all requirements ready:
 
-	pip install -r requirements.txt
-
-	python main.py
 
 ### How to Use the CodeBase
 
