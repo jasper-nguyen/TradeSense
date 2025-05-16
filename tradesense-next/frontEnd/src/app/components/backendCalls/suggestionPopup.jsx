@@ -32,7 +32,7 @@ export default function SuggestionPopup({ coin = 'BTC' }) {
             const m = raw.match(/'(decreased|increased)'/);
             if (!m) throw new Error('No direction found in response');
 
-            setMessage(m[1] === 'decreased' ? 'BUY' : 'SELL');
+            setMessage(m[1] === 'decreased' ? 'SELL' : 'BUY');
         } catch (err) {
             console.error(err);
             setRawData('');
