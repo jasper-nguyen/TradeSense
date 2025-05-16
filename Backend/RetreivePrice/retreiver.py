@@ -45,6 +45,101 @@ class Retriever:
                     print(f"Error fetching percentage change for {self.crypto_symbol}: {e}")
                     return None
 
+
+    def get_weekly_percent_change(self):
+                url = "https://min-api.cryptocompare.com/data/v2/histoday"
+                params = {
+                    'fsym': self.crypto_symbol,
+                    'tsym': 'USD',
+                    'limit': 7,  # Last 8 days (index 0 = 7 days ago, index -1 = today)
+                    'api_key': self.api_key
+                }
+
+                try:
+                    response = requests.get(url, params=params)
+                    response.raise_for_status()
+                    data = response.json()
+
+                    # Debug print to confirm data shape
+                    print(data)
+
+                    prices = data.get("Data", {}).get("Data", [])
+
+                    if len(prices) < 2:
+                        raise ValueError("Insufficient price data for weekly comparison")
+
+                    price_today = prices[-1].get('close')
+                    price_week_ago = prices[0].get('close')
+
+                    if price_today is None or price_week_ago is None:
+                        raise ValueError("Missing 'close' price in response")
+
+                    percent_change = ((price_today - price_week_ago) / price_week_ago) * 100
+                    return round(percent_change, 2)
+
+                except (requests.exceptions.RequestException, ValueError, KeyError) as e:
+                    print(f"Error fetching weekly percent change for {self.crypto_symbol}: {e}")
+                    return None
+
+
+
+    def get_monthly_percent_change(self):
+        url = "https://min-api.cryptocompare.com/data/v2/histoday"
+        params = {
+            'fsym': self.crypto_symbol,
+            'tsym': 'USD',
+            'limit': 30,
+            'api_key': self.api_key
+        }
+
+        try:
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+            prices = data.get("Data", {}).get("Data", [])
+
+            if len(prices) < 2:
+                raise ValueError("Not enough data for 30-day comparison")
+
+            price_today = prices[-1].get("close")
+            price_30_days_ago = prices[0].get("close")
+
+            if price_today is None or price_30_days_ago is None:
+                raise ValueError("Missing price data in API response")
+
+            percent_change = ((price_today - price_30_days_ago) / price_30_days_ago) * 100
+            return round(percent_change, 2)
+
+        except (requests.exceptions.RequestException, ValueError, KeyError) as e:
+            print(f"Error fetching 30-day percentage change for {self.crypto_symbol}: {e}")
+            return None
+
+
+
+    def get_yearly_percent_change(self):
+        try:
+            url = "https://min-api.cryptocompare.com/data/v2/histoday"
+            params = {
+                'fsym': self.crypto_symbol,
+                'tsym': 'USD',
+                'limit': 365,
+                'api_key': self.api_key
+            }
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+            prices = data["Data"]["Data"]
+            if len(prices) < 366:
+                raise ValueError("Insufficient data returned for 365-day comparison")
+            price_today = prices[-1]['close']
+            price_1_year_ago = prices[0]['close']
+            percent_change = ((price_today - price_1_year_ago) / price_1_year_ago) * 100
+            return round(percent_change, 2)
+        except (requests.exceptions.RequestException, ValueError, KeyError) as e:
+            print(f"Error fetching 1-year percentage change for {self.crypto_symbol}: {e}")
+            return None
+
+
     #NOTE: YOU GUYS CAN BUILD OFF OF THIS TO GET RANGES OF DATA IN CERTAIN FORMATS
 
         

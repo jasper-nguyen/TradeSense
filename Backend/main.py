@@ -104,6 +104,53 @@ async def current_price_SOL():
     percent = sol_retriever.get_percent_change()
     return percent
 
+@app.get("/percent-change-week-BTC")
+async def percent_change_week_BTC():
+    percent = btc_retriever.get_weekly_percent_change()
+    return percent
+
+@app.get("/percent-change-week-ETH")
+async def percent_change_week_ETH():
+    percent = eth_retriever.get_weekly_percent_change()
+    return percent
+
+@app.get("/percent-change-week-SOL")
+async def percent_change_week_SOL():
+    percent = sol_retriever.get_weekly_percent_change()
+    return percent
+
+
+
+@app.get("/percent-change-monthly-BTC")
+async def percent_change_monthly_BTC():
+    percent = btc_retriever.get_monthly_percent_change()
+    return percent
+
+@app.get("/percent-change-monthly-ETH")
+async def percent_change_monthly_ETH():
+    percent = eth_retriever.get_monthly_percent_change()
+    return percent
+
+@app.get("/percent-change-monthly-SOL")
+async def percent_change_monthly_SOL():
+    percent = sol_retriever.get_monthly_percent_change()
+    return percent
+
+@app.get("/percent-change-yearly-BTC")
+async def percent_change_yearly_BTC():
+    percent = btc_retriever.get_yearly_percent_change()
+    return percent
+
+@app.get("/percent-change-yearly-ETH")
+async def percent_change_yearly_ETH():
+    percent = eth_retriever.get_yearly_percent_change()
+    return percent
+
+@app.get("/percent-change-yearly-SOL")
+async def percent_change_yearly_SOL():
+    percent = sol_retriever.get_yearly_percent_change()
+    return percent
+
 
 @app.get("/info-BTC")
 async def info_BTC():
