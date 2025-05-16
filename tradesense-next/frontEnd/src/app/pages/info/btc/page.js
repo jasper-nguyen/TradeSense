@@ -19,7 +19,6 @@ function BTCPage() {
                 <h2 className="crypto-title">Bitcoin price USD</h2>
                 <h1 className="crypto-price"><Price coin={crypto} view={view} /></h1>
                 <select className="time-select" value={view} onChange={(e) => setView(e.target.value)}>
-                    <option value="Day">Day</option>
                     <option value="Week">Week</option>
                     <option value="Month">Month</option>
                     <option value="Year">Year</option>

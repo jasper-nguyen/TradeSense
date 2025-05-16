@@ -15,9 +15,6 @@ const Price = ({ coin, view }) => {
                 // Determine the correct route based on view
                 let percentRoute = '';
                 switch (view?.toLowerCase()) {
-                    case 'day':
-                        percentRoute = `/percent-change-${coin}`;
-                        break;
                     case 'week':
                         percentRoute = `/percent-change-weekly-${coin}`;
                         break;
