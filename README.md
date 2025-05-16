@@ -82,9 +82,11 @@ Additional Developer Scripts
 
 	pip install -r requirements.txt
 
+ Run the backend! (with python installed, done here)
+
 	python main.py	
 
-	(optional below, assuming python is installed above)
+(optional below, assuming python is installed above)
 	
 	python -m venv venv
 
