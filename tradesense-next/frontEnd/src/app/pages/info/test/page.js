@@ -10,10 +10,6 @@ let crypto = "BTC"
 function BTCPage() {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [view, setView] = useState('Week');
-    const history = [
-        { type: 'Sold', amount: '0.009 BTC', price: '$621.98' },
-        { type: 'Bought', amount: '0.003 BTC', price: '$273.72' }
-    ];
 
     return (
         <div className="crypto-container">
