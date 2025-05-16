@@ -48,7 +48,7 @@ export default function SuggestionPopup({ coin = 'BTC' }) {
                 className="suggest-button"
                 onClick={handleSuggest}
             >
-                Suggest {coin.toUpperCase()}
+                Suggest
             </button>
 
             <Popup trigger={trigger} setTrigger={setTrigger}>
