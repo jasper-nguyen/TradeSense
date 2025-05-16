@@ -84,6 +84,12 @@ Additional Developer Scripts
 
 ### Setting Up the Backend
 
+#### Open another terminal alongside frontend
+
+ Traverse to backend directory
+
+ 	cd ./Backend
+  
  Make sure to have all requirements ready:
 
 	pip install -r requirements.txt
