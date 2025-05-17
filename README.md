@@ -2,6 +2,12 @@
 
 ### Repo Link: https://github.com/definetlynottri/Cmpe195a.git
 
+### Team Members:
+#### Mathew Estrada
+#### Anthony Nguyen
+#### Jasper Nguyen
+#### Tri Tran
+
 ## Project Structure
 
 ```
