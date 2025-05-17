@@ -72,7 +72,7 @@ Additional Developer Scripts
 
 	git clone https://github.com/yourusername/Cmpe195a.git
 
-	cd .\tradesense-next\frontend
+	cd ./tradesense-next/frontend
 
 	npm install
 
