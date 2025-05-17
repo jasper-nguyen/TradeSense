@@ -1,5 +1,7 @@
 # TradeSense AI-Enhanced Cryptocurrency Trading
 
+### Repo Link: https://github.com/definetlynottri/Cmpe195a.git
+
 ## Project Structure
 
 ```
