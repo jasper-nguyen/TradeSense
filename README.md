@@ -1,6 +1,6 @@
 # TradeSense AI-Enhanced Cryptocurrency Trading
 
-### Repo Link: https://github.com/definetlynottri/Cmpe195a.git
+### Repo Link: https://github.com/jasper-nguyen/TradeSense
 
 ### Team Members:
 #### Jasper Nguyen
